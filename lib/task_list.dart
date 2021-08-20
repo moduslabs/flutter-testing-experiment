@@ -16,15 +16,13 @@ class TaskList extends StatelessWidget {
     final tiles = tasks
         .map((task) => ListTile(
             leading: const FlutterLogo(),
+            key: Key(task),
             title: Text(task),
             onTap: () {
               onTap(task);
             }))
         .toList(growable: true);
 
-    return ListView(
-      padding: const EdgeInsets.all(8),
-      children: tiles,
-    );
+    return ListView(padding: const EdgeInsets.all(8), children: tiles);
   }
 }
