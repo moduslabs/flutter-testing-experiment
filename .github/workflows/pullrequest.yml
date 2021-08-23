@@ -19,4 +19,4 @@ jobs:
           minimum-coverage: 90
           artifact-name: code-coverage-report
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          working-directory: flutter_testing_experiment
+          working-directory: .
