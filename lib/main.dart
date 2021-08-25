@@ -50,7 +50,12 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: TaskList(tasks: _tasks, onRemove: _removeTask),
+      body: TaskList(
+          tasks: _tasks,
+          onRemove: _removeTask,
+          onReorder: () {
+            setState(() {});
+          }),
       floatingActionButton: FloatingActionButton(
         onPressed: _addTask,
         tooltip: 'Add a new task',
