@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_testing_experiment/task_list.dart';
+import 'package:flutter_testing_experiment/tasks/task_list.dart';
 import 'package:mockito/mockito.dart';
 
 class MockFunction extends Mock implements Function {

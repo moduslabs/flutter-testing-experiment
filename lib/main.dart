@@ -1,5 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_testing_experiment/task_list.dart';
+import 'package:flutter_testing_experiment/tasks/task.dart';
+import 'package:flutter_testing_experiment/tasks/task_list.dart';
+import 'package:flutter_testing_experiment/tasks/task_service.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,21 +31,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _tasks = <String>[];
+  final _taskService = TaskService();
 
-  int _counter = 0;
-
-  void _addTask() {
-    setState(() {
-      _counter++;
-      _tasks.add("Task $_counter");
-    });
+  void _addTask() async {
+    final random = Random();
+    final nextInt = random.nextInt(10000);
+    await _taskService.saveOrUpdate(Task(
+        title: 'Task $nextInt', description: 'Execute Task 1', order: nextInt));
+    setState(() {});
   }
 
-  void _removeTask(String name) {
-    setState(() {
-      _tasks.remove(name);
-    });
+  void _removeTask(Task task) async {
+    await _taskService.remove(task);
+    setState(() {});
   }
 
   @override
@@ -50,7 +52,31 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: TaskList(tasks: _tasks, onRemove: _removeTask),
+      body: FutureBuilder<List<Task>>(
+        future: _taskService.findAll(),
+        builder: (BuildContext context, AsyncSnapshot<List<Task>> snapshot) {
+          Widget? taskListWidget;
+          if (snapshot.hasData) {
+            taskListWidget =
+                TaskList(tasks: snapshot.requireData, onRemove: _removeTask);
+          } else if (snapshot.hasError) {
+            taskListWidget = TaskList(tasks: [
+              Task(
+                  uuid: 'nothing_here',
+                  title: 'Something went wrong',
+                  description: 'Something went wrong',
+                  order: 0)
+            ], onRemove: _removeTask);
+          } else {
+            taskListWidget = const SizedBox(
+              width: 60,
+              height: 60,
+              child: CircularProgressIndicator(),
+            );
+          }
+          return taskListWidget;
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addTask,
         tooltip: 'Add a new task',
