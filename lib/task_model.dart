@@ -18,10 +18,11 @@ class Task {
   Task(this.title);
 
   late String title;
+  String? description;
   bool done = false;
 
   @override
   String toString() {
-    return 'Task{title: $title}';
+    return 'Task{title: $title, description: $description}';
   }
 }
