@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_testing_experiment/task_model.dart';
 
 class TaskList extends StatelessWidget {
   const TaskList(
@@ -8,7 +9,7 @@ class TaskList extends StatelessWidget {
       required this.onReorder})
       : super(key: key);
 
-  final List<String> tasks;
+  final List<Task> tasks;
   final Function onRemove;
   final Function onReorder;
 
@@ -21,13 +22,13 @@ class TaskList extends StatelessWidget {
     final tiles = tasks
         .map((task) => ListTile(
             leading: const FlutterLogo(),
-            key: Key(task),
-            tileColor: int.parse(task.substring(5)).isOdd
+            key: Key(task.title),
+            tileColor: int.parse(task.title.substring(5)).isOdd
                 ? oddItemColor
                 : evenItemColor,
-            title: Text(task),
+            title: Text(task.title),
             onTap: () {
-              onRemove(task);
+              onRemove(task.title);
             }))
         .toList(growable: true);
     return ReorderableListView(
@@ -35,8 +36,8 @@ class TaskList extends StatelessWidget {
           if (oldIndex < newIndex) {
             newIndex -= 1;
           }
-          final String item = tasks.removeAt(oldIndex);
-          tasks.insert(newIndex, item);
+          // final String item = tasks.removeAt(oldIndex);
+          // tasks.insert(newIndex, item);
           onReorder();
         },
         children: tiles);

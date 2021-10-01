@@ -11,10 +11,15 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   lint: ^1.6.0
+  stacked: ^2.2.5
+  stacked_services: ^0.8.13
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   mockito: ^5.0.15
+  stacked_generator: ^0.5.2
+  build_runner: ^2.1.2
+
 flutter:
   uses-material-design: true
