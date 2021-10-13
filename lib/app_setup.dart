@@ -1,5 +1,5 @@
-import 'package:flutter_testing_experiment/create_task_view.dart';
-import 'package:flutter_testing_experiment/task_view.dart';
+import 'package:flutter_testing_experiment/src/ui/create_task_view.dart';
+import 'package:flutter_testing_experiment/src/ui/task_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 

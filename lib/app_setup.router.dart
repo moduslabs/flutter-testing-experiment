@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 
-import 'create_task_view.dart';
-import 'task_view.dart';
+import 'src/ui/create_task_view.dart';
+import 'src/ui/task_view.dart';
 
 class Routes {
   static const String taskView = '/';

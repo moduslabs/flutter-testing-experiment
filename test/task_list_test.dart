@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_testing_experiment/task_list.dart';
+import 'package:flutter_testing_experiment/src/ui/task_list_view.dart';
 import 'package:mockito/mockito.dart';
 
 class OnRemoveMockFunction extends Mock implements Function {
@@ -22,7 +22,8 @@ void main() {
           child: Directionality(
             textDirection: TextDirection.ltr,
             child: Center(
-              child: TaskList(tasks: tasks, onRemove: () {}, onReorder: () {}),
+              child:
+                  TaskListView(tasks: tasks, onRemove: () {}, onReorder: () {}),
             ),
           ),
         ),
@@ -36,7 +37,7 @@ void main() {
       final onReorder = OnReorderMockFunction();
       final tasks = ['Task 1', 'Task 2', 'Task 3'];
       final tasksWidget =
-          TaskList(tasks: tasks, onRemove: () {}, onReorder: onReorder);
+          TaskListView(tasks: tasks, onRemove: () {}, onReorder: onReorder);
       await tester.pumpWidget(MaterialApp(
         home: Material(
           child: Directionality(
@@ -68,8 +69,8 @@ void main() {
           child: Directionality(
             textDirection: TextDirection.ltr,
             child: Center(
-              child:
-                  TaskList(tasks: tasks, onRemove: onRemove, onReorder: () {}),
+              child: TaskListView(
+                  tasks: tasks, onRemove: onRemove, onReorder: () {}),
             ),
           ),
         ),

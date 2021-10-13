@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_testing_experiment/task_model.dart';
+import 'package:flutter_testing_experiment/src/core/models/task.dart';
 
-class TaskList extends StatelessWidget {
-  const TaskList(
+class TaskListView extends StatelessWidget {
+  const TaskListView(
       {Key? key,
       required this.tasks,
       required this.onRemove,
@@ -22,10 +22,9 @@ class TaskList extends StatelessWidget {
     final tiles = tasks
         .map((task) => ListTile(
             leading: const FlutterLogo(),
-            key: Key(task.title),
-            tileColor: int.parse(task.title.substring(5)).isOdd
-                ? oddItemColor
-                : evenItemColor,
+            key: Key(task.id!),
+            tileColor:
+                tasks.indexOf(task).isEven ? evenItemColor : oddItemColor,
             title: Text(task.title),
             onTap: () {
               onRemove(task.title);
@@ -36,8 +35,8 @@ class TaskList extends StatelessWidget {
           if (oldIndex < newIndex) {
             newIndex -= 1;
           }
-          // final String item = tasks.removeAt(oldIndex);
-          // tasks.insert(newIndex, item);
+          final Task task = tasks.removeAt(oldIndex);
+          tasks.insert(newIndex, task);
           onReorder();
         },
         children: tiles);
