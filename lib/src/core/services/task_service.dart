@@ -9,33 +9,18 @@ class TaskService extends Crud<Task, String> {
 
   @override
   Future<Task> save(Task entity) async {
-    return tasksCollection
-        .add({
-          'title': entity.title,
-          'description': entity.description,
-          'dueDate': entity.dueDate,
-        })
-        .asStream()
-        .map((event) {
-          entity.id = event.id;
-          return entity;
-        })
-        .single;
+    return tasksCollection.add(entity.toJson()).asStream().map((event) {
+      entity.id = event.id;
+      return entity;
+    }).single;
   }
 
   @override
   Future<List<Task>> getAll() async {
-    return tasksCollection
-        .get()
-        .then((value) => value.docs.map(_parse).toList());
-  }
-
-  Task _parse(QueryDocumentSnapshot snapshot) {
-    final data = snapshot.data() as Map<String, dynamic>;
-    return Task(
-        id: snapshot.id,
-        title: data['title'] as String,
-        dueDate: DateTime.now());
+    return tasksCollection.get().then((value) => value.docs
+        .map((snapshot) =>
+            Task.fromJson(snapshot.id, snapshot.data() as Map<String, dynamic>))
+        .toList());
   }
 
   @override
