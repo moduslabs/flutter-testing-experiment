@@ -12,6 +12,7 @@ class Task {
     return Task(
         id: id,
         title: data['title'] as String,
+        description: data['description'] as String,
         dueDate: (data['dueDate'] as Timestamp).toDate());
   }
 

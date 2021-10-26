@@ -24,8 +24,11 @@ class TaskService extends Crud<Task, String> {
   }
 
   @override
-  Future<Task> update(Task entity) {
-    throw UnimplementedError();
+  Future<Task> update(String key, Task entity) {
+    return tasksCollection
+        .doc(key)
+        .update(entity.toJson())
+        .then((value) => entity);
   }
 
   @override
@@ -35,6 +38,12 @@ class TaskService extends Crud<Task, String> {
 
   @override
   Future<Task> getOne(String key) {
-    throw UnimplementedError();
+    return tasksCollection
+        .doc(key)
+        .get()
+        .asStream()
+        .map((snapshot) =>
+            Task.fromJson(snapshot.id, snapshot.data() as Map<String, dynamic>))
+        .single;
   }
 }

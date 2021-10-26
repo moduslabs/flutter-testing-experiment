@@ -1,7 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_testing_experiment/src/ui/task_list_view.dart';
+import 'package:flutter_testing_experiment/src/core/models/task.dart';
+import 'package:flutter_testing_experiment/src/ui/containers/task_list.dart';
 import 'package:mockito/mockito.dart';
 
 class OnRemoveMockFunction extends Mock implements Function {
@@ -16,14 +17,17 @@ void main() {
   group('TaskList', () {
     testWidgets('Should render the collection of tasks',
         (WidgetTester tester) async {
-      const tasks = ['Task 1', 'Task 2', 'Task 3'];
+      final tasks = [
+        Task(title: 'Task 1', dueDate: DateTime.now(), description: 'Task 1'),
+        Task(title: 'Task 2', dueDate: DateTime.now(), description: 'Task 2'),
+        Task(title: 'Task 3', dueDate: DateTime.now(), description: 'Task 3'),
+      ];
       await tester.pumpWidget(MaterialApp(
         home: Material(
           child: Directionality(
             textDirection: TextDirection.ltr,
             child: Center(
-              child:
-                  TaskListView(tasks: tasks, onRemove: () {}, onReorder: () {}),
+              child: TaskListView(tasks: tasks, onTap: () {}, onReorder: () {}),
             ),
           ),
         ),
@@ -35,9 +39,13 @@ void main() {
     testWidgets('Should reorder the collection of tasks',
         (WidgetTester tester) async {
       final onReorder = OnReorderMockFunction();
-      final tasks = ['Task 1', 'Task 2', 'Task 3'];
+      final tasks = [
+        Task(title: 'Task 1', dueDate: DateTime.now(), description: 'Task 1'),
+        Task(title: 'Task 2', dueDate: DateTime.now(), description: 'Task 2'),
+        Task(title: 'Task 3', dueDate: DateTime.now(), description: 'Task 3'),
+      ];
       final tasksWidget =
-          TaskListView(tasks: tasks, onRemove: () {}, onReorder: onReorder);
+          TaskListView(tasks: tasks, onTap: () {}, onReorder: onReorder);
       await tester.pumpWidget(MaterialApp(
         home: Material(
           child: Directionality(
@@ -62,15 +70,19 @@ void main() {
     });
     testWidgets('Should call the onRemove function',
         (WidgetTester tester) async {
-      const tasks = ['Task 1', 'Task 2', 'Task 3'];
+      final tasks = [
+        Task(title: 'Task 1', dueDate: DateTime.now(), description: 'Task 1'),
+        Task(title: 'Task 2', dueDate: DateTime.now(), description: 'Task 2'),
+        Task(title: 'Task 3', dueDate: DateTime.now(), description: 'Task 3'),
+      ];
       final onRemove = OnRemoveMockFunction();
       await tester.pumpWidget(MaterialApp(
         home: Material(
           child: Directionality(
             textDirection: TextDirection.ltr,
             child: Center(
-              child: TaskListView(
-                  tasks: tasks, onRemove: onRemove, onReorder: () {}),
+              child:
+                  TaskListView(tasks: tasks, onTap: onRemove, onReorder: () {}),
             ),
           ),
         ),

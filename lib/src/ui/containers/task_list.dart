@@ -5,12 +5,12 @@ class TaskListView extends StatelessWidget {
   const TaskListView(
       {Key? key,
       required this.tasks,
-      required this.onRemove,
+      required this.onTap,
       required this.onReorder})
       : super(key: key);
 
   final List<Task> tasks;
-  final Function onRemove;
+  final Function onTap;
   final Function onReorder;
 
   @override
@@ -27,7 +27,7 @@ class TaskListView extends StatelessWidget {
                 tasks.indexOf(task).isEven ? evenItemColor : oddItemColor,
             title: Text(task.title),
             onTap: () {
-              onRemove(task.title);
+              onTap(task);
             }))
         .toList(growable: true);
     return ReorderableListView(
