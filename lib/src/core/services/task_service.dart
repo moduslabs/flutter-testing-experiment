@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_testing_experiment/src/core/models/task.dart';
+import 'package:flutter_testing_experiment/src/core/data/task.dart';
 
 import 'crud.dart';
 
@@ -24,16 +24,25 @@ class TaskService extends Crud<Task, String> {
   }
 
   @override
-  Future<Task> update(String key, Task entity) {
+  Future<List<Task>> getPending() async {
+    return tasksCollection.where('done', isEqualTo: false).get().then((value) =>
+        value.docs
+            .map((snapshot) => Task.fromJson(
+                snapshot.id, snapshot.data() as Map<String, dynamic>))
+            .toList());
+  }
+
+  @override
+  Future<Task> update(Task entity) {
     return tasksCollection
-        .doc(key)
+        .doc(entity.id)
         .update(entity.toJson())
         .then((value) => entity);
   }
 
   @override
-  Future<void> remove(Task entity) {
-    throw UnimplementedError();
+  Future<void> remove(Task entity) async {
+    await tasksCollection.doc(entity.id).delete();
   }
 
   @override

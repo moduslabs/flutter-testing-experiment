@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_testing_experiment/src/core/models/task.dart';
+import 'package:flutter_testing_experiment/src/core/data/task.dart';
 import 'package:flutter_testing_experiment/src/ui/containers/task_details.dart';
 
 class TaskDetailsView extends StatefulWidget {

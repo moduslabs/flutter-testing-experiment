@@ -2,17 +2,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Task {
   String? id;
-  final String title;
-  final String? description;
-  final DateTime dueDate;
+  String title;
+  String? description;
+  DateTime dueDate;
+  bool done;
 
-  Task({this.id, required this.title, required this.dueDate, this.description});
+  Task(
+      {this.id,
+      required this.title,
+      required this.dueDate,
+      this.description,
+      this.done = false});
 
   factory Task.fromJson(String id, Map<String, dynamic> data) {
     return Task(
         id: id,
         title: data['title'] as String,
         description: data['description'] as String,
+        done: data['done'] as bool,
         dueDate: (data['dueDate'] as Timestamp).toDate());
   }
 
@@ -21,12 +28,13 @@ class Task {
       'title': title,
       'description': description,
       'dueDate': dueDate,
+      'done': done,
     };
   }
 
   @override
   String toString() {
-    return 'Task{id: $id, title: $title, description: $description, dueDate: $dueDate}';
+    return 'Task{id: $id, title: $title, description: $description, dueDate: $dueDate, done: $done}';
   }
 
   @override

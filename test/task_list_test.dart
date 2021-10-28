@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_testing_experiment/src/core/models/task.dart';
+import 'package:flutter_testing_experiment/src/core/data/task.dart';
 import 'package:flutter_testing_experiment/src/ui/containers/task_list.dart';
 import 'package:mockito/mockito.dart';
 
