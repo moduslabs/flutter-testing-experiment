@@ -27,15 +27,14 @@ class _TaskViewState extends State<TaskView> {
                 appBar: AppBar(
                   title: const Text("Pending Tasks"),
                 ),
-                body: TaskListView(
+                body: TaskList(
                     tasks: snapshot.data ?? [],
-                    onTap: (Task task) {
-                      Navigator.pushNamed<Task>(context, '/task',
-                          arguments: task);
-                    },
-                    onReorder: () {
-                      setState(() {});
-                    }),
+                    onTap: (Task task) => Navigator.pushNamed<Task>(
+                        context, '/task',
+                        arguments: task),
+                    onDismissEndToStart: (Task task) => model.remove(task),
+                    onDismissStartToEnd: (Task task) => model.setAsDone(task),
+                    onReorder: () => setState(() {})),
                 floatingActionButton: FloatingActionButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/task');
