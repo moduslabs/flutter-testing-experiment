@@ -107,7 +107,6 @@ class _TaskDetailsState extends State<TaskDetails> {
                                   .parse(_dueDateController.text),
                               description: _descriptionController.text,
                             );
-
                             (task.id != null
                                     ? model.set(task)
                                     : model.add(task))

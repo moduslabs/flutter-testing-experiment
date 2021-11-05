@@ -23,6 +23,8 @@ class Task {
         dueDate: (data['dueDate'] as Timestamp).toDate());
   }
 
+  factory Task.nullObject() => Task(title: '', description: '', dueDate: DateTime.now());
+
   Map<String, dynamic> toJson() {
     return {
       'title': title,
