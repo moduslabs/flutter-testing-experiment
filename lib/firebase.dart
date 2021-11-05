@@ -7,10 +7,6 @@ import 'src/core/services/task_firestore_adapter.dart';
 
 typedef TaskCollectionReference = CollectionReference<Task>;
 
-class FirebaseProvider {
-  FirestoreProvider get collections => getIt<FirestoreProvider>();
-}
-
 class FirestoreProvider {
   FirebaseFirestore get firestore => getIt<FirebaseFirestore>();
   TaskFirestoreAdapter get taskAdapter => getIt<TaskFirestoreAdapter>();

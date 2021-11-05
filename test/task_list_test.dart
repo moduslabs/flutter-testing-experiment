@@ -17,6 +17,10 @@ class OnReorderMockFunction extends Mock implements Function {
   void call(List<Task> tasks);
 }
 
+class OnTapMockFunction extends Mock implements Function {
+  void call(Task task);
+}
+
 void main() {
   group('TaskList', () {
     testWidgets('Should render the collection of tasks',
@@ -99,6 +103,50 @@ void main() {
       await tester.pumpAndSettle();
       verify(onRemove(tasks.first)).called(1);
     });
+
+    testWidgets('Should call the onTap function',
+        (WidgetTester tester) async {
+      final tasks = [
+        Task(
+            id: 'task1',
+            title: 'Task 1',
+            dueDate: DateTime.now(),
+            description: 'Task 1'),
+        Task(
+            id: 'task2',
+            title: 'Task 2',
+            dueDate: DateTime.now(),
+            description: 'Task 2'),
+        Task(
+            id: 'task3',
+            title: 'Task 3',
+            dueDate: DateTime.now(),
+            description: 'Task 3'),
+      ];
+      final onTap = OnTapMockFunction();
+      await tester.pumpWidget(MaterialApp(
+        home: Material(
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: Center(
+              child: TaskList(
+                  tasks: tasks,
+                  onTap: onTap,
+                  onReorder: () {},
+                  onDismissEndToStart: () {},
+                  onDismissStartToEnd: () {}),
+            ),
+          ),
+        ),
+      ));
+      verifyNever(onTap(tasks.first));
+      final taskItem = find.text(tasks.first.title);
+      expect(taskItem, findsOneWidget);
+      await tester.tap(taskItem);
+      await tester.pump();
+      verify(onTap(tasks.first)).called(1);
+    });
+
     testWidgets('Should call the onSetAsDone function',
         (WidgetTester tester) async {
       final tasks = [
