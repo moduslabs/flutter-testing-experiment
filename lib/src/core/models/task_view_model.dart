@@ -1,16 +1,13 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_testing_experiment/injector.dart';
 import 'package:flutter_testing_experiment/src/core/data/task.dart';
 import 'package:flutter_testing_experiment/src/core/services/task_service.dart';
 
 class TaskViewModel extends ChangeNotifier {
-  late final TaskService _taskService;
+  final TaskService _taskService;
 
-  TaskViewModel() {
-    _taskService = getIt<TaskService>();
-  }
+  TaskViewModel(this._taskService);
 
   Future<List<Task>> getAll() async {
     return UnmodifiableListView(await _taskService.getAll());
@@ -20,14 +17,12 @@ class TaskViewModel extends ChangeNotifier {
     return UnmodifiableListView(await _taskService.getPending());
   }
 
-  Future<void> add(Task task) async {
-    await _taskService.save(task);
+  Future<Task> saveOrUpdate(Task task) async {
+    final savedTask = task.exists()
+        ? await _taskService.update(task)
+        : await _taskService.save(task);
     notifyListeners();
-  }
-
-  Future<void> set(Task task) async {
-    await _taskService.update(task);
-    notifyListeners();
+    return savedTask;
   }
 
   Future<void> setAsDone(Task task) async {
@@ -37,7 +32,7 @@ class TaskViewModel extends ChangeNotifier {
   }
 
   Future<void> remove(Task task) async {
-    if (task.id != null) await _taskService.remove(task.id!);
+    if (task.exists()) await _taskService.remove(task.id!);
     notifyListeners();
   }
 }

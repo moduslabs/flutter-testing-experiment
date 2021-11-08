@@ -51,6 +51,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: TextFormField(
+                          key: const Key("title-text-form-field"),
                           controller: _titleController,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),
@@ -60,6 +61,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: TextFormField(
+                        key: const Key("description-text-form-field"),
                         minLines: 3,
                         maxLines: 5,
                         controller: _descriptionController,
@@ -72,12 +74,14 @@ class _TaskDetailsState extends State<TaskDetails> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: TextFormField(
+                        key: const Key("due-date-text-form-field"),
                         controller: _dueDateController,
                         readOnly: true,
                         decoration: InputDecoration(
                             border: const OutlineInputBorder(),
                             labelText: "Due Date",
                             suffixIcon: IconButton(
+                                key: const Key("due-date-date-picker-button"),
                                 onPressed: () async {
                                   final date = await showDatePicker(
                                       context: context,
@@ -98,23 +102,20 @@ class _TaskDetailsState extends State<TaskDetails> {
                     ),
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       ElevatedButton(
+                        key: const Key('submit-button'),
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            final task = Task(
-                              id: widget.task?.id,
-                              title: _titleController.text,
-                              dueDate: DateFormat.yMEd()
-                                  .parse(_dueDateController.text),
-                              description: _descriptionController.text,
-                            );
-                            (task.id != null
-                                    ? model.set(task)
-                                    : model.add(task))
-                                .then((value) => Navigator.pop(context));
-                          }
+                          final task = Task(
+                            id: widget.task?.id,
+                            title: _titleController.text,
+                            dueDate: DateFormat.yMEd()
+                                .parse(_dueDateController.text),
+                            description: _descriptionController.text,
+                          );
+                          model
+                              .saveOrUpdate(task)
+                              .then((value) => Navigator.pop(context));
                         },
-                        child: Text(
-                            task?.id == null ? 'Create Task' : 'Update Task'),
+                        child: const Text('Submit'),
                       )
                     ]),
                   ]),

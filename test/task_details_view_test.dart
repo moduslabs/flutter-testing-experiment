@@ -1,27 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_testing_experiment/injector.dart';
 import 'package:flutter_testing_experiment/src/core/data/task.dart';
 import 'package:flutter_testing_experiment/src/core/models/task_view_model.dart';
-import 'package:flutter_testing_experiment/src/core/services/task_service.dart';
 import 'package:flutter_testing_experiment/src/ui/views/task_details_view.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mockito/annotations.dart';
 import 'package:provider/provider.dart';
 
-class MockTaskService extends Mock implements TaskService {}
+import 'task_details_test.mocks.dart';
 
+@GenerateMocks([TaskViewModel])
 void main() {
   group('TaskDetailsView', () {
-    MockTaskService taskService;
-
-    setUp(() {
-      taskService = MockTaskService();
-      getIt.registerLazySingleton<TaskService>(() => taskService);
-    });
-
-    tearDown(() {
-      getIt.unregister<TaskService>();
-    });
+    final model = MockTaskViewModel();
 
     testWidgets('Should render the create task form',
         (WidgetTester tester) async {
@@ -32,7 +22,7 @@ void main() {
             child: Center(
               child: MultiProvider(
                 providers: [
-                  ChangeNotifierProvider(create: (context) => TaskViewModel()),
+                  ChangeNotifierProvider<TaskViewModel>(create: (context) => model),
                 ],
                 child: const TaskDetailsView(),
               ),
@@ -53,7 +43,7 @@ void main() {
             child: Center(
               child: MultiProvider(
                 providers: [
-                  ChangeNotifierProvider(create: (context) => TaskViewModel()),
+                  ChangeNotifierProvider<TaskViewModel>(create: (context) => model),
                 ],
                 child: TaskDetailsView(
                     task: Task(

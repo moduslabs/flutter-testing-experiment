@@ -14,6 +14,8 @@ class Task {
       this.description,
       this.done = false});
 
+  bool exists() => id != null;
+
   factory Task.fromJson(String id, Map<String, dynamic> data) {
     return Task(
         id: id,

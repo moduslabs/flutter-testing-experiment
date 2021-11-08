@@ -1,13 +1,12 @@
-import 'package:flutter_testing_experiment/firebase.dart';
-import 'package:flutter_testing_experiment/injector.dart';
 import 'package:flutter_testing_experiment/src/core/data/task.dart';
-
 import 'package:logger/logger.dart';
-
+import 'package:flutter_testing_experiment/firebase.dart';
 import 'crud.dart';
 
 class TaskService extends Crud<Task, String> {
-  final TaskCollectionReference _tasksCollection = getIt<TaskCollectionReference>();
+  final TaskCollectionReference _tasksCollection;
+
+  TaskService(this._tasksCollection);
 
   final _logger = Logger();
 

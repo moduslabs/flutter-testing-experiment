@@ -7,10 +7,13 @@ import 'src/core/services/task_firestore_adapter.dart';
 
 final getIt = GetIt.instance;
 
-void setup() {  
-  getIt.registerLazySingleton<FirebaseFirestore>(() => FirebaseFirestore.instance);    
-  getIt.registerLazySingleton<FirestoreProvider>(() => FirestoreProvider());  
-  getIt.registerLazySingleton<TaskCollectionReference>(() => FirestoreProvider().tasks);  
-  getIt.registerLazySingleton<TaskService>(() => TaskService());  
-  getIt.registerLazySingleton<TaskFirestoreAdapter>(() => TaskFirestoreAdapter());
+void setup() {
+  getIt.registerLazySingleton<FirebaseFirestore>(
+      () => FirebaseFirestore.instance);
+  getIt.registerLazySingleton<FirestoreProvider>(() => FirestoreProvider());
+  getIt.registerLazySingleton<TaskCollectionReference>(
+      () => FirestoreProvider().tasks);
+  getIt.registerLazySingleton<TaskService>(() => TaskService(getIt<TaskCollectionReference>()));
+  getIt.registerLazySingleton<TaskFirestoreAdapter>(
+      () => TaskFirestoreAdapter());
 }

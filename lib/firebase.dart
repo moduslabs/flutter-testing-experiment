@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_testing_experiment/injector.dart';
 import 'package:flutter_testing_experiment/src/core/data/task.dart';
-import 'package:flutter_testing_experiment/src/core/services/task_service.dart';
 
 import 'src/core/services/task_firestore_adapter.dart';
 
