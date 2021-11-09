@@ -4,14 +4,14 @@ import 'package:flutter_testing_experiment/src/core/models/task_view_model.dart'
 import 'package:flutter_testing_experiment/src/ui/containers/task_list.dart';
 import 'package:provider/provider.dart';
 
-class TaskView extends StatefulWidget {
-  const TaskView({Key? key}) : super(key: key);
+class TaskListView extends StatefulWidget {
+  const TaskListView({Key? key}) : super(key: key);
 
   @override
-  _TaskViewState createState() => _TaskViewState();
+  _TaskListViewState createState() => _TaskListViewState();
 }
 
-class _TaskViewState extends State<TaskView> {
+class _TaskListViewState extends State<TaskListView> {
   @override
   Widget build(BuildContext context) {
     return Consumer<TaskViewModel>(
@@ -29,16 +29,12 @@ class _TaskViewState extends State<TaskView> {
                 ),
                 body: TaskList(
                     tasks: snapshot.data ?? [],
-                    onTap: (Task task) => Navigator.pushNamed<Task>(
-                        context, '/task',
-                        arguments: task),
-                    onDismissEndToStart: (Task task) => model.remove(task),
-                    onDismissStartToEnd: (Task task) => model.setAsDone(task),
+                    onTap: (Task task) => model.openTask(context, task),
+                    onDismissEndToStart: model.remove,
+                    onDismissStartToEnd: model.setAsDone,
                     onReorder: () => setState(() {})),
                 floatingActionButton: FloatingActionButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/task');
-                  },
+                  onPressed: () => model.openTask(context, null),
                   tooltip: 'Add a new task',
                   child: const Icon(Icons.add),
                 ),

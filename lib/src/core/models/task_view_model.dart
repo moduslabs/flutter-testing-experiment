@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_testing_experiment/src/core/data/task.dart';
 import 'package:flutter_testing_experiment/src/core/services/task_service.dart';
 
+import '../../../routes.dart';
+
 class TaskViewModel extends ChangeNotifier {
   final TaskService _taskService;
+  final RouterService _routerService;
 
-  TaskViewModel(this._taskService);
+  TaskViewModel(this._taskService, this._routerService);
 
   Future<List<Task>> getAll() async {
     return UnmodifiableListView(await _taskService.getAll());
@@ -35,4 +38,7 @@ class TaskViewModel extends ChangeNotifier {
     if (task.exists()) await _taskService.remove(task.id!);
     notifyListeners();
   }
+
+  Future<void> openTask(BuildContext context, Task? task) => _routerService.openTask(context, task);
+
 }

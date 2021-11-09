@@ -13,7 +13,7 @@ Future<void> main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => TaskViewModel(getIt<TaskService>())),
+        ChangeNotifierProvider(create: (context) => TaskViewModel(getIt<TaskService>(), getIt<RouterService>())),
       ],
       child: MyApp(),
     ),

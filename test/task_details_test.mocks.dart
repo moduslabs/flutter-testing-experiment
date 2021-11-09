@@ -3,8 +3,9 @@
 // Do not manually edit this file.
 
 import 'dart:async' as _i4;
-import 'dart:ui' as _i5;
+import 'dart:ui' as _i6;
 
+import 'package:flutter/material.dart' as _i5;
 import 'package:flutter_testing_experiment/src/core/data/task.dart' as _i2;
 import 'package:flutter_testing_experiment/src/core/models/task_view_model.dart'
     as _i3;
@@ -59,11 +60,16 @@ class MockTaskViewModel extends _i1.Mock implements _i3.TaskViewModel {
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
-  void addListener(_i5.VoidCallback? listener) =>
+  _i4.Future<void> openTask(_i5.BuildContext? context, _i2.Task? task) =>
+      (super.noSuchMethod(Invocation.method(#openTask, [context, task]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
+  @override
+  void addListener(_i6.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#addListener, [listener]),
           returnValueForMissingStub: null);
   @override
-  void removeListener(_i5.VoidCallback? listener) =>
+  void removeListener(_i6.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#removeListener, [listener]),
           returnValueForMissingStub: null);
   @override
