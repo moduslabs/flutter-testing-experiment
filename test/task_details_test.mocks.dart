@@ -3,11 +3,10 @@
 // Do not manually edit this file.
 
 import 'dart:async' as _i4;
-import 'dart:ui' as _i6;
+import 'dart:ui' as _i5;
 
-import 'package:flutter/material.dart' as _i5;
 import 'package:flutter_testing_experiment/src/core/data/task.dart' as _i2;
-import 'package:flutter_testing_experiment/src/core/models/task_view_model.dart'
+import 'package:flutter_testing_experiment/src/core/models/task_details_view_model.dart'
     as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -22,54 +21,50 @@ import 'package:mockito/mockito.dart' as _i1;
 
 class _FakeTask_0 extends _i1.Fake implements _i2.Task {}
 
-/// A class which mocks [TaskViewModel].
+/// A class which mocks [TaskDetailsViewModel].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTaskViewModel extends _i1.Mock implements _i3.TaskViewModel {
-  MockTaskViewModel() {
+class MockTaskDetailsViewModel extends _i1.Mock
+    implements _i3.TaskDetailsViewModel {
+  MockTaskDetailsViewModel() {
     _i1.throwOnMissingStub(this);
   }
 
+  @override
+  String get title =>
+      (super.noSuchMethod(Invocation.getter(#title), returnValue: '')
+          as String);
+  @override
+  String get dueDateFormatted =>
+      (super.noSuchMethod(Invocation.getter(#dueDateFormatted), returnValue: '')
+          as String);
   @override
   bool get hasListeners =>
       (super.noSuchMethod(Invocation.getter(#hasListeners), returnValue: false)
           as bool);
   @override
-  _i4.Future<List<_i2.Task>> getAll() =>
-      (super.noSuchMethod(Invocation.method(#getAll, []),
-              returnValue: Future<List<_i2.Task>>.value(<_i2.Task>[]))
-          as _i4.Future<List<_i2.Task>>);
+  void setTitle(String? title) =>
+      super.noSuchMethod(Invocation.method(#setTitle, [title]),
+          returnValueForMissingStub: null);
   @override
-  _i4.Future<List<_i2.Task>> getPending() =>
-      (super.noSuchMethod(Invocation.method(#getPending, []),
-              returnValue: Future<List<_i2.Task>>.value(<_i2.Task>[]))
-          as _i4.Future<List<_i2.Task>>);
+  void setDescription(String? description) =>
+      super.noSuchMethod(Invocation.method(#setDescription, [description]),
+          returnValueForMissingStub: null);
   @override
-  _i4.Future<_i2.Task> saveOrUpdate(_i2.Task? task) =>
-      (super.noSuchMethod(Invocation.method(#saveOrUpdate, [task]),
+  void setDueDate(DateTime? dueDate) =>
+      super.noSuchMethod(Invocation.method(#setDueDate, [dueDate]),
+          returnValueForMissingStub: null);
+  @override
+  _i4.Future<_i2.Task> save() =>
+      (super.noSuchMethod(Invocation.method(#save, []),
               returnValue: Future<_i2.Task>.value(_FakeTask_0()))
           as _i4.Future<_i2.Task>);
   @override
-  _i4.Future<void> setAsDone(_i2.Task? task) =>
-      (super.noSuchMethod(Invocation.method(#setAsDone, [task]),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
-  @override
-  _i4.Future<void> remove(_i2.Task? task) =>
-      (super.noSuchMethod(Invocation.method(#remove, [task]),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
-  @override
-  _i4.Future<void> openTask(_i5.BuildContext? context, _i2.Task? task) =>
-      (super.noSuchMethod(Invocation.method(#openTask, [context, task]),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
-  @override
-  void addListener(_i6.VoidCallback? listener) =>
+  void addListener(_i5.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#addListener, [listener]),
           returnValueForMissingStub: null);
   @override
-  void removeListener(_i6.VoidCallback? listener) =>
+  void removeListener(_i5.VoidCallback? listener) =>
       super.noSuchMethod(Invocation.method(#removeListener, [listener]),
           returnValueForMissingStub: null);
   @override
