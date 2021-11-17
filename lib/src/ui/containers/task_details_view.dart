@@ -18,7 +18,7 @@ class _TaskDetailsViewState extends State<TaskDetailsView> {
       builder: (context, model, _) {
         return Scaffold(
             appBar: AppBar(
-              title: const Text("Create/Edit Task"),
+              title: Text(model.exists ? model.title : 'Create Task'),
             ),
             body: Form(
                 key: _formKey,
@@ -33,8 +33,7 @@ class _TaskDetailsViewState extends State<TaskDetailsView> {
                           child: TextFormField(
                               key: const Key("title-text-form-field"),
                               initialValue: model.title,
-                              onSaved: (String? title) =>
-                                  model.setTitle(title!),
+                              onSaved: (String? title) => model.title = title!,
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 labelText: "Title",
@@ -48,7 +47,7 @@ class _TaskDetailsViewState extends State<TaskDetailsView> {
                             maxLines: 5,
                             initialValue: model.description,
                             onSaved: (String? description) =>
-                                model.setDescription(description),
+                                model.description = description,
                             decoration: const InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: "Description",
@@ -73,7 +72,7 @@ class _TaskDetailsViewState extends State<TaskDetailsView> {
                                           initialDate: DateTime.now(),
                                           firstDate: DateTime(2000),
                                           lastDate: DateTime(2030));
-                                      if (date != null) model.setDueDate(date);
+                                      if (date != null) model.dueDate = date;
                                     },
                                     icon: const Icon(
                                       Icons.date_range,
@@ -89,9 +88,12 @@ class _TaskDetailsViewState extends State<TaskDetailsView> {
                                 key: const Key('submit-button'),
                                 onPressed: () {
                                   _formKey.currentState?.save();
-                                  model
-                                      .save()
-                                      .then((value) => Navigator.pop(context));
+                                  model.save().then((_) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            content: Text(
+                                                "Task successfully submitted")));
+                                  });
                                 },
                                 child: const Text('Submit'),
                               )

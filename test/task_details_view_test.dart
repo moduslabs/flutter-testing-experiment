@@ -8,17 +8,18 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
 
-import 'task_details_test.mocks.dart';
+import 'task_details_view_test.mocks.dart';
 
 @GenerateMocks([TaskDetailsViewModel])
 main() {
-  group('TaskDetails', () {
+  group('TaskDetailsView', () {
     final model = MockTaskDetailsViewModel();
 
     testWidgets('Should hit the save button and call the model',
         (WidgetTester tester) async {
       final task = Task.nullObject();
 
+      when(model.exists).thenReturn(task.exists);
       when(model.title).thenReturn(task.title);
       when(model.description).thenReturn(task.description);
       when(model.dueDateFormatted)

@@ -21,7 +21,7 @@ class TaskListViewModel extends ChangeNotifier {
   }
 
   Future<void> remove(Task task) async {
-    if (task.exists()) {
+    if (task.exists) {
       await _taskService.remove(task.id!);
     }
     notifyListeners();

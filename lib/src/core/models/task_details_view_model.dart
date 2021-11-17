@@ -12,27 +12,27 @@ class TaskDetailsViewModel extends ChangeNotifier {
 
   TaskDetailsViewModel.withTask(this._taskService, this._task);
 
+  bool get exists => _task.exists;
+  String? get id => _task.id;
   String get title => _task.title;
   String? get description => _task.description;
-  String get dueDateFormatted => DateFormat.yMEd().format(_task.dueDate);
+  DateTime get dueDate => _task.dueDate;
+  String get dueDateFormatted => DateFormat.yMEd().format(dueDate);
 
-  void setTitle(String title) {
+  set title(String title) {
     _task.title = title;
-    notifyListeners();
   }
 
-  void setDescription(String? description) {
+  set description(String? description) {
     _task.description = description;
-    notifyListeners();
   }
 
-  void setDueDate(DateTime dueDate) {
+  set dueDate(DateTime dueDate) {
     _task.dueDate = dueDate;
-    notifyListeners();
   }
 
   Future<Task> save() async {
-    final savedTask = _task.exists()
+    final savedTask = _task.exists
         ? await _taskService.update(_task)
         : await _taskService.save(_task);
     notifyListeners();
